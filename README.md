@@ -2,7 +2,7 @@
 
 Proof of Concept react fade in/out that just works without any effort.
 
-<img src="prpeview.gif" />
+<img src="preview.gif" />
 
 ```tsx
 interface MessagesProps {
