@@ -20,4 +20,15 @@ const Messages = ({ messages, onRemoveMessage }: MessagesProps) => {
     </div>
   );
 };
+
+const MessageBubble = styled(FadeDiv)`
+  opacity: 1;
+
+  &.fadeIn {
+    opacity: 0;
+  }
+  &.fadeOut {
+    opacity: 0;
+  }
+`;
 ```

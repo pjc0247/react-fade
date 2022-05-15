@@ -65,6 +65,22 @@ const MessageBubble = styled(FadeDiv)`
   border-radius: 8px;
 
   padding: 4px;
+
+  transition: all 0.5s ease;
+  transform-origin: top center;
+
+  opacity: 1;
+
+  &.fadeIn {
+    opacity: 0;
+    transform: scaleY(0);
+    margin-top: -33px;
+  }
+  &.fadeOut {
+    opacity: 0;
+    transform: scaleY(0);
+    margin-top: -33px;
+  }
 `;
 
 export default App;

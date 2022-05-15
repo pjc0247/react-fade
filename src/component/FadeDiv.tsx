@@ -45,13 +45,25 @@ export const useTransitionalState = (
 
 interface TransitionalDivProps {
   show: DisplayStatus;
+  className?: string;
   children: React.ReactNode;
 }
 export const TransitionalDiv = forwardRef<HTMLDivElement, TransitionalDivProps>(
-  ({ show, children, ...props }: TransitionalDivProps, ref) => {
+  ({ show, children, className, ...props }: TransitionalDivProps, ref) => {
     if (!show) return null;
+
+    const newClassName = [
+      {
+        [DisplayStatus.FadeIn]: "fadeIn",
+        [DisplayStatus.FadeOut]: "fadeOut",
+        [DisplayStatus.Show]: "",
+        [DisplayStatus.Hidden]: "",
+      }[show],
+      className,
+    ].join(" ");
+
     return (
-      <Wrapper ref={ref} show={show} {...props}>
+      <Wrapper ref={ref} className={newClassName} {...props}>
         {children}
       </Wrapper>
     );
@@ -76,7 +88,12 @@ export const FadeDiv = ({ children, ...props }: FadeDivProps) => {
         setShow(false);
         parent!.insertBefore(elem, f);
 
-        ReactDOM.render(<FadeOutDiv ref={ref}>{children}</FadeOutDiv>, elem);
+        ReactDOM.render(
+          <FadeOutDiv ref={ref} {...props}>
+            {children}
+          </FadeOutDiv>,
+          elem
+        );
       });
     };
   }, []);
@@ -88,7 +105,7 @@ export const FadeDiv = ({ children, ...props }: FadeDivProps) => {
   );
 };
 
-const FadeOutDiv = ({ children }: any) => {
+const FadeOutDiv = ({ children, ...props }: any) => {
   const [show, setShow] = useTransitionalState(true, DisplayStatus.Show);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -97,31 +114,10 @@ const FadeOutDiv = ({ children }: any) => {
   }, []);
 
   return (
-    <TransitionalDiv ref={ref} show={show}>
+    <TransitionalDiv ref={ref} show={show} {...props}>
       {children}
     </TransitionalDiv>
   );
 };
 
-const Wrapper = styled.div<{ show: DisplayStatus }>`
-  transition: all 0.5s ease;
-  transform-origin: top center;
-
-  ${({ show }) =>
-    ({
-      [DisplayStatus.FadeIn]: css`
-        opacity: 0;
-        transform: scaleY(0);
-        margin-top: -24px;
-      `,
-      [DisplayStatus.Show]: css`
-        opacity: 1;
-      `,
-      [DisplayStatus.FadeOut]: css`
-        opacity: 0;
-        transform: scaleY(0);
-        margin-top: -24px;
-      `,
-      [DisplayStatus.Hidden]: css``,
-    }[show])}
-`;
+const Wrapper = styled.div``;
