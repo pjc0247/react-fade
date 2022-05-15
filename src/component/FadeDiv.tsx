@@ -74,7 +74,7 @@ interface FadeDivProps {
   children: React.ReactNode;
 }
 export const FadeDiv = ({ children, ...props }: FadeDivProps) => {
-  const [show, setShow] = useTransitionalState(true);
+  const [show] = useTransitionalState(true);
   const ref = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
@@ -85,7 +85,6 @@ export const FadeDiv = ({ children, ...props }: FadeDivProps) => {
       const f = parent!.children[sibIndex + 1];
 
       queueMicrotask(() => {
-        setShow(false);
         parent!.insertBefore(elem, f);
 
         ReactDOM.render(
