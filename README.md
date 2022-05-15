@@ -2,6 +2,8 @@
 
 Proof of Concept react fade in/out that just works without any effort.
 
+Inspired by react native layout animations.
+
 <img src="preview.gif" />
 
 ```tsx
