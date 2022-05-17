@@ -10,7 +10,7 @@ Inspired by react native layout animations.
 
 - FadeIn
   - nothing special,
-  - Starts as `FadeIn` state and change it to `Normal` after 1 tick, So the browser will automatically make a transition for it.
+  - Starts as `FadeIn` state and change it to `Normal` after 1 tick. So, browser will automatically make a transition for it.
 - FadeOut:
   - Here's the trick. Prevents elements from being deleted on unmount and wait for fully(in this case, just waits 500ms) disappeared.
   - [Please see](https://github.com/pjc0247/react-fade/blob/master/src/component/FadeDiv.tsx#L80-L98)
